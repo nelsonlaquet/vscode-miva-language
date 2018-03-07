@@ -348,6 +348,10 @@
 			"name": "string.quoted.single.html",
 			"patterns": [
 				{
+					"match": "\\\\.",
+					"name": "string.quoted.single.html"
+				},
+				{
 					"include": "#embedded-code"
 				},
 				{
