@@ -1896,7 +1896,7 @@
 							},
 							"end": "(?<=\")",
 							"patterns": [
-								{"include": "#expression-or-var-list"}
+								{"include": "#mv-expression-or-var-list"}
 							]
 						},
 						{
@@ -1906,7 +1906,7 @@
 							},
 							"end": "(?<=\")",
 							"patterns": [
-								{"include": "#expression-or-sql"}
+								{"include": "#mv-expression-or-sql"}
 							]
 						},
 						{
