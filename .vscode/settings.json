@@ -1,0 +1,12 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+    "files.exclude": {
+        "bin": true,
+        ".vscode-test": true,
+        "node_modules": true
+    },
+    "search.exclude": {
+        "bin": true,
+        ".vscode-test": true
+    }
+}

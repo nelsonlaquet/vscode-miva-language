@@ -1,0 +1,77 @@
+{
+    "name": "miva-language",
+    "displayName": "Mive Language Support",
+    "description": "Supports syntax highlighting on .mv and .mvt files; used in the the Miva E-Commerce platform.",
+    "version": "0.0.2",
+    "publisher": "nelsonlaquet",
+    "private": true,
+    "engines": {
+        "vscode": "^1.20.0"
+    },
+    "repository": "https://github.com/nelsonlaquet/miva-deployer",
+    "keywords": [
+        "miva",
+        "mvt",
+        "mivascript"
+    ],
+    "Languages": [
+        "Other"
+    ],
+    "contributes": {
+        "languages": [
+            {
+                "id": "miva-script",
+                "extensions": [
+                    ".mv"
+                ],
+                "configuration": "./languages/mivaScript-configuration.json"
+            },
+            {
+                "id": "miva-template",
+                "extensions": [
+                    ".mvt"
+                ],
+                "configuration": "./languages/mivaTemplate-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "miva-script",
+                "scopeName": "source.mv",
+                "path": "./syntaxes/mv.tmLanguage.json",
+                "embeddedLanguages": {
+                    "source.css": "css",
+                    "source.js": "javascript",
+                    "source.sql": "sql"
+                }
+            },
+            {
+                "language": "miva-template",
+                "scopeName": "source.mvt",
+                "path": "./syntaxes/mvt.tmLanguage.json",
+                "embeddedLanguages": {
+                    "source.css": "css",
+                    "source.js": "javascript"
+                }
+            }
+        ]
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "postinstall": "node ./node_modules/vscode/bin/install",
+        "test": "npm run compile && node ./node_modules/vscode/bin/test"
+    },
+    "devDependencies": {
+        "typescript": "^2.6.1",
+        "vscode": "^1.1.6",
+        "@types/node": "^7.0.43",
+        "@types/mocha": "^2.2.42"
+    },
+    "dependencies": {
+        "miva-api": "^0.1.2",
+        "miva-deployer": "0.0.2",
+        "miva-deployer-watcher": "0.0.3"
+    }
+}
