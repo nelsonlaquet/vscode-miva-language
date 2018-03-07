@@ -2,7 +2,7 @@
     "name": "miva-language",
     "displayName": "Mive Language Support",
     "description": "Supports syntax highlighting on .mv and .mvt files; used in the the Miva E-Commerce platform.",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "publisher": "nelsonlaquet",
     "private": true,
     "engines": {
