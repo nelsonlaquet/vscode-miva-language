@@ -2,7 +2,7 @@
     "name": "miva-language",
     "displayName": "Mive Language Support",
     "description": "Supports syntax highlighting on .mv and .mvt files; used in the the Miva E-Commerce platform.",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "publisher": "nelsonlaquet",
     "private": true,
     "engines": {
@@ -74,8 +74,8 @@
         "miva-deployer": "0.0.2",
         "miva-deployer-watcher": "0.0.3"
     },
-  "bugs": {
-    "url": "https://github.com/nelsonlaquet/vscode-miva-language/issues"
-  },
-  "homepage": "https://github.com/nelsonlaquet/vscode-miva-language#readme"
+    "bugs": {
+        "url": "https://github.com/nelsonlaquet/vscode-miva-language/issues"
+    },
+    "homepage": "https://github.com/nelsonlaquet/vscode-miva-language#readme"
 }
