@@ -39,7 +39,7 @@
 
 		"mv-expression-or-sql": {
 			"patterns": [
-				{"include": "#mv-expression"},
+				{"include": "#mv-sql-expression"},
 				{"include": "#mv-sql"}
 			]
 		},
@@ -82,11 +82,51 @@
 			]
 		},
 
+		"mv-sql-expression": {
+			"name": "meta.expression.mv",
+			"begin": "\"{",
+			"end": "}\"",
+			"patterns": [
+				{"include": "#mv-sql-naked-expression"}
+			]
+		},
+
 		"mv-naked-expression": {
 			"name": "meta.expression.mv",
 			"patterns": [
 				{"include": "#number"},
 				{"include": "#string-single-quoted"},
+				{
+					"name": "keyword.control",
+					"match": "\\+\\+|--|NOT|ROUND|CRYPT|MOD|SUBSTR|POW|/|\\*|\\+|\\-|\\$|IN|CIN|EIN|ECIN|EQ|NE|GE|LE|LT|GT|ISNULL|AND|OR"
+				},
+				{"include": "#mv-function-call"},
+				{"include": "#mv-var"}
+			]
+		},
+
+		"mv-sql-naked-expression": {
+			"name": "meta.expression.mv",
+			"patterns": [
+				{"include": "#number"},
+				{
+					"begin": "'",
+					"beginCaptures": {
+						"0": {
+							"name": "punctuation.definition.string.begin.html"
+						}
+					},
+					"end": "'",
+					"endCaptures": {
+						"0": {
+							"name": "punctuation.definition.string.end.html"
+						}
+					},
+					"name": "string.quoted.single.html",
+					"patterns": [
+						{"include": "source.sql"}
+					]
+				},
 				{
 					"name": "keyword.control",
 					"match": "\\+\\+|--|NOT|ROUND|CRYPT|MOD|SUBSTR|POW|/|\\*|\\+|\\-|\\$|IN|CIN|EIN|ECIN|EQ|NE|GE|LE|LT|GT|ISNULL|AND|OR"
@@ -439,11 +479,11 @@
 							]
 						},
 						{
-							"begin": "(?i)\\s+(value|member)\\s*=\\s*(?=\")",
+							"begin": "(?i)\\s+(value|member)\\s*=\\s*(?=(\\w+|\\d+|\"))",
 							"beginCaptures": {
 								"1": {"name": "punctuation.definition.tag"}
 							},
-							"end": "(?<=\")",
+							"end": "(?<=[\\w\\d\"])",
 							"patterns": [
 								{"include": "#mv-expression-or-literal"}
 							]
@@ -489,11 +529,11 @@
 							]
 						},
 						{
-							"begin": "(?i)\\s+(value)\\s*=\\s*(?=\")",
+							"begin": "(?i)\\s+(value)\\s*=\\s*(?=(\\w+|\\d+|\"))",
 							"beginCaptures": {
 								"1": {"name": "punctuation.definition.tag"}
 							},
-							"end": "(?<=\")",
+							"end": "(?<=[\\w\\d\"])",
 							"patterns": [
 								{"include": "#mv-expression-or-literal"}
 							]
@@ -539,11 +579,11 @@
 					},
 					"patterns": [
 						{
-							"begin": "(?i)(action|content-type|files|certfile|certtype|certpass|certvalue|timeout|headers)\\s*=\\s*(?=\")",
+							"begin": "(?i)\\s+(action|content-type|files|certfile|certtype|certpass|certvalue|timeout|headers)\\s*=\\s*(?=(\\w+|\\d+|\"))",
 							"beginCaptures": {
 								"1": {"name": "punctuation.definition.tag"}
 							},
-							"end": "(?<=\")",
+							"end": "(?<=[\\w\\d\"])",
 							"patterns": [
 								{"include": "#mv-expression-or-literal"}
 							]
@@ -719,11 +759,11 @@
 					},
 					"patterns": [
 						{
-							"begin": "(?i)\\s+(action|metamethod)\\s*=\\s*(?=\")",
+							"begin": "(?i)\\s+(action|metamethod)\\s*=\\s*(?=(\\w+|\\d+|\"))",
 							"beginCaptures": {
 								"1": {"name": "punctuation.definition.tag"}
 							},
-							"end": "(?<=\")",
+							"end": "(?<=[\\w\\d\"])",
 							"patterns": [
 								{"include": "#mv-expression-or-literal"}
 							]
@@ -799,11 +839,11 @@
 							]
 						},
 						{
-							"begin": "(?i)\\s+(database)\\s*=\\s*(?=\")",
+							"begin": "(?i)\\s+(database)\\s*=\\s*(?=(\\w+|\\d+|\"))",
 							"beginCaptures": {
 								"1": {"name": "punctuation.definition.tag"}
 							},
-							"end": "(?<=\")",
+							"end": "(?<=[\\w\\d\"])",
 							"patterns": [
 								{"include": "#mv-expression-or-literal"}
 							]
@@ -859,11 +899,11 @@
 							]
 						},
 						{
-							"begin": "(?i)\\s+(command)\\s*=\\s*(?=\")",
+							"begin": "(?i)\\s+(command)\\s*=\\s*(?=(\\w+|\\d+|\"))",
 							"beginCaptures": {
 								"1": {"name": "punctuation.definition.tag"}
 							},
-							"end": "(?<=\")",
+							"end": "(?<=[\\w\\d\"])",
 							"patterns": [
 								{"include": "#mv-expression-or-literal"}
 							]
@@ -959,11 +999,11 @@
 					},
 					"patterns": [
 						{
-							"begin": "(?i)\\s+(file|name)\\s*=\\s*(?=\")",
+							"begin": "(?i)\\s+(file|name)\\s*=\\s*(?=(\\w+|\\d+|\"))",
 							"beginCaptures": {
 								"1": {"name": "punctuation.definition.tag"}
 							},
-							"end": "(?<=\")",
+							"end": "(?<=[\\w\\d\"])",
 							"patterns": [
 								{"include": "#mv-expression-or-literal"}
 							]
@@ -1059,11 +1099,11 @@
 					},
 					"patterns": [
 						{
-							"begin": "(?i)\\s+(file|delimiter)\\s*=\\s*(?=\")",
+							"begin": "(?i)\\s+(file|delimiter)\\s*=\\s*(?=(\\w+|\\d+|\"))",
 							"beginCaptures": {
 								"1": {"name": "punctuation.definition.tag"}
 							},
-							"end": "(?<=\")",
+							"end": "(?<=[\\w\\d\"])",
 							"patterns": [
 								{"include": "#mv-expression-or-literal"}
 							]
@@ -1149,21 +1189,11 @@
 					},
 					"patterns": [
 						{
-							"begin": "(?i)\\s+(name|view)\\s*=\\s*(?=\")",
+							"begin": "(?i)\\s+(name|view|value)\\s*=\\s*(?=(\\w+|\\d+|\"))",
 							"beginCaptures": {
 								"1": {"name": "punctuation.definition.tag"}
 							},
-							"end": "(?<=\")",
-							"patterns": [
-								{"include": "#mv-expression-or-literal"}
-							]
-						},
-						{
-							"begin": "(?i)\\s+(value)\\s*=\\s*(?=\")",
-							"beginCaptures": {
-								"1": {"name": "punctuation.definition.tag"}
-							},
-							"end": "(?<=\")",
+							"end": "(?<=[\\w\\d\"])",
 							"patterns": [
 								{"include": "#mv-expression-or-literal"}
 							]
@@ -1273,11 +1303,11 @@
 					},
 					"patterns": [
 						{
-							"begin": "(?i)\\s+(value)\\s*=\\s*(?=(\"|\\d+))",
+							"begin": "(?i)\\s+(value)\\s*=\\s*(?=(\\w+|\\d+|\"))",
 							"beginCaptures": {
 								"1": {"name": "punctuation.definition.tag"}
 							},
-							"end": "(?<=[\"\\s>/])",
+							"end": "(?<=[\\w\\d\"])",
 							"patterns": [
 								{"include": "#mv-expression-or-literal"}
 							]
@@ -1450,11 +1480,11 @@
 					},
 					"patterns": [
 						{
-							"begin": "(?i)\\s+(name)\\s*=\\s*(?=\")",
+							"begin": "(?i)\\s+(name)\\s*=\\s*(?=(\\w+|\\d+|\"))",
 							"beginCaptures": {
 								"1": {"name": "punctuation.definition.tag"}
 							},
-							"end": "(?<=\")",
+							"end": "(?<=[\\w\\d\"])",
 							"patterns": [
 								{"include": "#mv-expression-or-literal"}
 							]
@@ -1480,11 +1510,11 @@
 					},
 					"patterns": [
 						{
-							"begin": "(?i)\\s+(name)\\s*=\\s*(?=\")",
+							"begin": "(?i)\\s+(name)\\s*=\\s*(?=(\\w+|\\d+|\"))",
 							"beginCaptures": {
 								"1": {"name": "punctuation.definition.tag"}
 							},
-							"end": "(?<=\")",
+							"end": "(?<=[\\w\\d\"])",
 							"patterns": [
 								{"include": "#mv-expression-or-literal"}
 							]
@@ -1510,11 +1540,11 @@
 					},
 					"patterns": [
 						{
-							"begin": "(?i)\\s+(name)\\s*=\\s*(?=\")",
+							"begin": "(?i)\\s+(name)\\s*=\\s*(?=(\\w+|\\d+|\"))",
 							"beginCaptures": {
 								"1": {"name": "punctuation.definition.tag"}
 							},
-							"end": "(?<=\")",
+							"end": "(?<=[\\w\\d\"])",
 							"patterns": [
 								{"include": "#mv-expression-or-literal"}
 							]
@@ -1590,11 +1620,11 @@
 							]
 						},
 						{
-							"begin": "(?i)\\s+(id)\\s*=\\s*(?=\")",
+							"begin": "(?i)\\s+(id)\\s*=\\s*(?=(\\w+|\\d+|\"))",
 							"beginCaptures": {
 								"1": {"name": "punctuation.definition.tag"}
 							},
-							"end": "(?<=\")",
+							"end": "(?<=[\\w\\d\"])",
 							"patterns": [
 								{"include": "#mv-expression-or-literal"}
 							]
@@ -1630,11 +1660,11 @@
 					},
 					"patterns": [
 						{
-							"begin": "(?i)\\s+(language)\\s*=\\s*(?=\")",
+							"begin": "(?i)\\s+(language)\\s*=\\s*(?=(\\w+|\\d+|\"))",
 							"beginCaptures": {
 								"1": {"name": "punctuation.definition.tag"}
 							},
-							"end": "(?<=\")",
+							"end": "(?<=[\\w\\d\"])",
 							"patterns": [
 								{"include": "#mv-expression-or-literal"}
 							]
@@ -1660,11 +1690,11 @@
 					},
 					"patterns": [
 						{
-							"begin": "(?i)\\s+(name|value)\\s*=\\s*(?=\")",
+							"begin": "(?i)\\s+(name|value)\\s*=\\s*(?=(\\w+|\\d+|\"))",
 							"beginCaptures": {
 								"1": {"name": "punctuation.definition.tag"}
 							},
-							"end": "(?<=\")",
+							"end": "(?<=[\\w\\d\"])",
 							"patterns": [
 								{"include": "#mv-expression-or-literal"}
 							]
@@ -1690,11 +1720,11 @@
 					},
 					"patterns": [
 						{
-							"begin": "(?i)\\s+(file)\\s*=\\s*(?=\")",
+							"begin": "(?i)\\s+(file)\\s*=\\s*(?=(\\w+|\\d+|\"))",
 							"beginCaptures": {
 								"1": {"name": "punctuation.definition.tag"}
 							},
-							"end": "(?<=\")",
+							"end": "(?<=[\\w\\d\"])",
 							"patterns": [
 								{"include": "#mv-expression-or-literal"}
 							]
@@ -1720,11 +1750,11 @@
 					},
 					"patterns": [
 						{
-							"begin": "(?i)\\s+(name|indexfile|expr)\\s*=\\s*(?=\")",
+							"begin": "(?i)\\s+(name|indexfile|expr)\\s*=\\s*(?=(\\w+|\\d+|\"))",
 							"beginCaptures": {
 								"1": {"name": "punctuation.definition.tag"}
 							},
-							"end": "(?<=\")",
+							"end": "(?<=[\\w\\d\"])",
 							"patterns": [
 								{"include": "#mv-expression-or-literal"}
 							]
@@ -1770,11 +1800,11 @@
 					},
 					"patterns": [
 						{
-							"begin": "(?i)\\s+(name)\\s*=\\s*(?=\")",
+							"begin": "(?i)\\s+(name)\\s*=\\s*(?=(\\w+|\\d+|\"))",
 							"beginCaptures": {
 								"1": {"name": "punctuation.definition.tag"}
 							},
-							"end": "(?<=\")",
+							"end": "(?<=[\\w\\d\"])",
 							"patterns": [
 								{"include": "#mv-expression-or-literal"}
 							]
@@ -1810,11 +1840,11 @@
 							]
 						},
 						{
-							"begin": "(?i)\\s+(database|username|password|indexes)\\s*=\\s*(?=\")",
+							"begin": "(?i)\\s+(database|username|password|indexes)\\s*=\\s*(?=(\\w+|\\d+|\"))",
 							"beginCaptures": {
 								"1": {"name": "punctuation.definition.tag"}
 							},
-							"end": "(?<=\")",
+							"end": "(?<=[\\w\\d\"])",
 							"patterns": [
 								{"include": "#mv-expression-or-literal"}
 							]
@@ -1930,11 +1960,11 @@
 					},
 					"patterns": [
 						{
-							"begin": "(?i)\\s+(mailhost|login|password|directory)\\s*=\\s*(?=\")",
+							"begin": "(?i)\\s+(mailhost|login|password|directory)\\s*=\\s*(?=(\\w+|\\d+|\"))",
 							"beginCaptures": {
 								"1": {"name": "punctuation.definition.tag"}
 							},
-							"end": "(?<=\")",
+							"end": "(?<=[\\w\\d\"])",
 							"patterns": [
 								{"include": "#mv-expression-or-literal"}
 							]
@@ -1970,11 +2000,11 @@
 							]
 						},
 						{
-							"begin": "(?i)\\s+(index)\\s*=\\s*(?=\")",
+							"begin": "(?i)\\s+(index)\\s*=\\s*(?=(\\w+|\\d+|\"))",
 							"beginCaptures": {
 								"1": {"name": "punctuation.definition.tag"}
 							},
-							"end": "(?<=\")",
+							"end": "(?<=[\\w\\d\"])",
 							"patterns": [
 								{"include": "#mv-expression-or-literal"}
 							]
@@ -2060,11 +2090,11 @@
 							]
 						},
 						{
-							"begin": "(?i)\\s+(member)\\s*=\\s*(?=\")",
+							"begin": "(?i)\\s+(member)\\s*=\\s*(?=(\\w+|\\d+|\"))",
 							"beginCaptures": {
 								"1": {"name": "punctuation.definition.tag"}
 							},
-							"end": "(?<=\")",
+							"end": "(?<=[\\w\\d\"])",
 							"patterns": [
 								{"include": "#mv-expression-or-literal"}
 							]
@@ -2140,11 +2170,11 @@
 					},
 					"patterns": [
 						{
-							"begin": "(?i)\\s+(name)\\s*=\\s*(?=\")",
+							"begin": "(?i)\\s+(name)\\s*=\\s*(?=(\\w+|\\d+|\"))",
 							"beginCaptures": {
 								"1": {"name": "punctuation.definition.tag"}
 							},
-							"end": "(?<=\")",
+							"end": "(?<=[\\w\\d\"])",
 							"patterns": [
 								{"include": "#mv-expression-or-literal"}
 							]
@@ -2170,13 +2200,23 @@
 					},
 					"patterns": [
 						{
-							"begin": "(?i)\\s+(name|database|view)\\s*=\\s*(?=\")",
+							"begin": "(?i)\\s+(name)\\s*=\\s*(?=(\\w+|\\d+|\"))",
 							"beginCaptures": {
 								"1": {"name": "punctuation.definition.tag"}
 							},
 							"end": "(?<=\")",
 							"patterns": [
 								{"include": "#mv-expression-or-literal"}
+							]
+						},
+						{
+							"begin": "(?i)\\s+(database|view)\\s*=\\s*(?=\")",
+							"beginCaptures": {
+								"1": {"name": "punctuation.definition.tag"}
+							},
+							"end": "(?<=\")",
+							"patterns": [
+								{"include": "#mv-expression-or-db"}
 							]
 						},
 						{
@@ -2240,11 +2280,11 @@
 							]
 						},
 						{
-							"begin": "(?i)\\s+(indexes)\\s*=\\s*(?=\")",
+							"begin": "(?i)\\s+(indexes)\\s*=\\s*(?=(\\w+|\\d+|\"))",
 							"beginCaptures": {
 								"1": {"name": "punctuation.definition.tag"}
 							},
-							"end": "(?<=\")",
+							"end": "(?<=[\\w\\d\"])",
 							"patterns": [
 								{"include": "#mv-expression-or-literal"}
 							]
@@ -2310,11 +2350,11 @@
 					},
 					"patterns": [
 						{
-							"begin": "(?i)\\s+(from|to|cc|subject|flags|mailhost|username|password)\\s*=\\s*(?=\")",
+							"begin": "(?i)\\s+(from|to|cc|subject|flags|mailhost|username|password)\\s*=\\s*(?=(\\w+|\\d+|\"))",
 							"beginCaptures": {
 								"1": {"name": "punctuation.definition.tag"}
 							},
-							"end": "(?<=\")",
+							"end": "(?<=[\\w\\d\"])",
 							"patterns": [
 								{"include": "#mv-expression-or-literal"}
 							]
