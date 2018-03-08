@@ -209,7 +209,7 @@
 
 		"number": {
 			"name": "constant.numeric.decimal",
-			"match": "\\d+"
+			"match": "-?\\d+"
 		},
 		
 		"numeric-string": {
@@ -483,7 +483,7 @@
 							]
 						},
 						{
-							"begin": "(?i)\\s+(value|member)\\s*=\\s*(?=(\\w+|\\d+|\"))",
+							"begin": "(?i)\\s+(value|member)\\s*=\\s*(?=(\\w+|[-?\\d+\\.]|\"))",
 							"beginCaptures": {
 								"1": {"name": "punctuation.definition.tag"}
 							},
@@ -533,7 +533,7 @@
 							]
 						},
 						{
-							"begin": "(?i)\\s+(value)\\s*=\\s*(?=(\\w+|\\d+|\"))",
+							"begin": "(?i)\\s+(value)\\s*=\\s*(?=(\\w+|[\\d+\\.]|\"))",
 							"beginCaptures": {
 								"1": {"name": "punctuation.definition.tag"}
 							},
@@ -583,7 +583,7 @@
 					},
 					"patterns": [
 						{
-							"begin": "(?i)\\s+(action|content-type|files|certfile|certtype|certpass|certvalue|timeout|headers)\\s*=\\s*(?=(\\w+|\\d+|\"))",
+							"begin": "(?i)\\s+(action|content-type|files|certfile|certtype|certpass|certvalue|timeout|headers)\\s*=\\s*(?=(\\w+|[\\d+\\.]|\"))",
 							"beginCaptures": {
 								"1": {"name": "punctuation.definition.tag"}
 							},

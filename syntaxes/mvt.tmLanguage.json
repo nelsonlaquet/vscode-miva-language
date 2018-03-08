@@ -173,12 +173,12 @@
 
 		"number": {
 			"name": "constant.numeric.decimal",
-			"match": "\\d+"
+			"match": "-?[\\d+\\.]"
 		},
 		
 		"numeric-string": {
 			"name": "constant.numeric.decimal",
-			"begin": "\"(?=\\d+\")",
+			"begin": "\"(?=-?[\\d+\\.]\")",
 			"beginCaptures": {
 				"0": {"name": "constant.numeric.decimal"}
 			},
@@ -210,7 +210,7 @@
 				},
 				{
 					"name": "invalid.illegal",
-					"match": "(&)mvt[eajs]?:[\\w_\\d+:_\\.\\[\\]]+"
+					"match": "(&)mvt[eajs]?:[\\w_-?\\d+:_\\.\\[\\]]+"
 				},
 				{
 					"captures": {
